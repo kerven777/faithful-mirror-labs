@@ -232,7 +232,7 @@ export function FloatingBackground() {
   return (
     <div
       aria-hidden
-      className="pointer-events-none absolute inset-0 z-[-1] select-none overflow-hidden"
+      className="pointer-events-none absolute inset-0 z-0 select-none overflow-hidden"
       style={{ perspective: "1400px" }}
     >
       {ITEMS.map((item, i) => (

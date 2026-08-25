@@ -15,7 +15,8 @@ export function HomePage() {
     <I18nProvider>
       <div className="relative isolate min-h-screen bg-background font-sans antialiased">
         <FloatingBackground />
-        <Header />
+        <div className="relative z-10">
+          <Header />
         <main>
           <Hero />
           <Courses />
@@ -25,7 +26,8 @@ export function HomePage() {
           <Faq />
           <Contact />
         </main>
-        <Footer />
+          <Footer />
+        </div>
       </div>
     </I18nProvider>
   );
