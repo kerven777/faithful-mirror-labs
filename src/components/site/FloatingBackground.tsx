@@ -233,7 +233,6 @@ export function FloatingBackground() {
     <div
       aria-hidden
       className="pointer-events-none absolute inset-0 z-0 select-none overflow-hidden"
-      style={{ perspective: "1400px" }}
     >
       {ITEMS.map((item, i) => (
         <div
@@ -242,7 +241,12 @@ export function FloatingBackground() {
             refs.current[i] = el;
           }}
           className={`absolute will-change-transform ${item.hideOnMobile ? "hidden lg:block" : ""}`}
-          style={{ top: item.top, left: item.left, transformStyle: "preserve-3d" }}
+          style={{
+            top: item.top,
+            left: item.left,
+            perspective: "900px",
+            perspectiveOrigin: "50% 50%",
+          }}
         >
           <div
             className={`${item.drift} will-change-transform`}
