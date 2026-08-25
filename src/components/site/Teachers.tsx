@@ -23,7 +23,7 @@ export function Teachers() {
   return (
     <section
       id="teachers"
-      className="relative overflow-hidden px-5 lg:px-10 py-20 lg:py-28 bg-surface"
+      className="relative overflow-hidden px-5 lg:px-10 py-20 lg:py-28 bg-surface/70"
     >
       <div
         aria-hidden

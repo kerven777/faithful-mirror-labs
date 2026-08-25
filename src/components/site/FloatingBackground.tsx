@@ -1,161 +1,202 @@
 import { useEffect, useRef } from "react";
-import {
-  BookOpen,
-  GraduationCap,
-  Lightbulb,
-  PenTool,
-  NotebookPen,
-  FileText,
-  Calculator,
-  Sigma,
-  Ruler,
-  Atom,
-} from "lucide-react";
 
-type Depth = "back" | "mid" | "front";
+import bookOpen from "@/assets/float/book-open.png";
+import bookStack from "@/assets/float/book-stack.png";
+import bookmark from "@/assets/float/bookmark.png";
+import bulb from "@/assets/float/bulb.png";
+import cap from "@/assets/float/cap.png";
+import notebook from "@/assets/float/notebook.png";
+import pages from "@/assets/float/pages.png";
+import pens from "@/assets/float/pens.png";
+
+type Depth = "far" | "mid" | "near";
 
 type FloatItem = {
-  Icon: typeof BookOpen;
+  src: string;
+  alt: string;
   top: string;
   left: string;
   depth: Depth;
+  /** rendered width in px (desktop) */
   size: number;
-  drift: "animate-drift-a" | "animate-drift-b" | "animate-drift-c";
+  drift: "animate-float3d-a" | "animate-float3d-b" | "animate-float3d-c";
   duration: string;
   delay: string;
+  /** scroll parallax factor — larger = nearer */
   parallax: number;
-  tint: string;
+  spin: number;
   hideOnMobile?: boolean;
 };
 
-const DEPTH_STYLE: Record<Depth, { opacity: string; blur: string }> = {
-  back: { opacity: "opacity-25", blur: "blur-[1.5px]" },
-  mid: { opacity: "opacity-35", blur: "" },
-  front: { opacity: "opacity-50", blur: "" },
+/**
+ * Depth layers: farther objects are smaller in contrast, softer and blurrier so
+ * foreground content always stays legible.
+ */
+const DEPTH_STYLE: Record<Depth, string> = {
+  far: "opacity-[0.2] blur-[3px] saturate-[0.75]",
+  mid: "opacity-[0.32] blur-[1.2px] saturate-[0.9]",
+  near: "opacity-[0.42] blur-[0.3px]",
 };
 
 const ITEMS: FloatItem[] = [
   {
-    Icon: GraduationCap,
-    top: "8%",
-    left: "9%",
-    depth: "front",
-    size: 54,
-    drift: "animate-drift-a",
-    duration: "12s",
-    delay: "0s",
-    parallax: 0.06,
-    tint: "from-brand/25 to-brand/5 text-brand",
-  },
-  {
-    Icon: BookOpen,
-    top: "16%",
-    left: "86%",
-    depth: "mid",
-    size: 42,
-    drift: "animate-drift-b",
-    duration: "15s",
-    delay: "1s",
-    parallax: 0.04,
-    tint: "from-brand-deep/20 to-brand-deep/5 text-brand-deep",
-  },
-  {
-    Icon: Lightbulb,
-    top: "27%",
-    left: "4%",
-    depth: "mid",
-    size: 38,
-    drift: "animate-drift-c",
-    duration: "17s",
-    delay: "0.5s",
-    parallax: 0.035,
-    tint: "from-amber-400/20 to-amber-400/5 text-amber-600",
-  },
-  {
-    Icon: PenTool,
-    top: "35%",
-    left: "93%",
-    depth: "back",
-    size: 30,
-    drift: "animate-drift-a",
-    duration: "18s",
-    delay: "2s",
-    parallax: 0.025,
-    tint: "from-brand/15 to-brand/5 text-brand",
-    hideOnMobile: true,
-  },
-  {
-    Icon: Sigma,
-    top: "46%",
+    src: cap,
+    alt: "",
+    top: "6%",
     left: "7%",
-    depth: "front",
-    size: 46,
-    drift: "animate-drift-b",
-    duration: "13s",
-    delay: "0.3s",
-    parallax: 0.05,
-    tint: "from-brand-deep/20 to-brand-deep/5 text-brand-deep",
+    depth: "near",
+    size: 128,
+    drift: "animate-float3d-a",
+    duration: "27s",
+    delay: "0s",
+    parallax: 0.075,
+    spin: -12,
   },
   {
-    Icon: NotebookPen,
-    top: "55%",
-    left: "90%",
+    src: bookOpen,
+    alt: "",
+    top: "13%",
+    left: "83%",
     depth: "mid",
-    size: 40,
-    drift: "animate-drift-c",
-    duration: "16s",
-    delay: "1.4s",
-    parallax: 0.04,
-    tint: "from-brand/20 to-brand/5 text-brand",
+    size: 116,
+    drift: "animate-float3d-b",
+    duration: "34s",
+    delay: "-6s",
+    parallax: 0.05,
+    spin: 14,
   },
   {
-    Icon: Calculator,
-    top: "64%",
+    src: bulb,
+    alt: "",
+    top: "24%",
     left: "3%",
-    depth: "back",
-    size: 32,
-    drift: "animate-drift-a",
-    duration: "19s",
-    delay: "0.8s",
-    parallax: 0.03,
-    tint: "from-brand-deep/15 to-brand-deep/5 text-brand-deep",
+    depth: "mid",
+    size: 84,
+    drift: "animate-float3d-c",
+    duration: "41s",
+    delay: "-12s",
+    parallax: 0.045,
+    spin: 8,
+  },
+  {
+    src: pens,
+    alt: "",
+    top: "31%",
+    left: "91%",
+    depth: "far",
+    size: 96,
+    drift: "animate-float3d-a",
+    duration: "46s",
+    delay: "-3s",
+    parallax: 0.022,
+    spin: -22,
     hideOnMobile: true,
   },
   {
-    Icon: FileText,
-    top: "73%",
-    left: "92%",
-    depth: "front",
-    size: 44,
-    drift: "animate-drift-b",
-    duration: "14s",
-    delay: "2.2s",
-    parallax: 0.055,
-    tint: "from-brand/25 to-brand/5 text-brand",
+    src: bookStack,
+    alt: "",
+    top: "42%",
+    left: "6%",
+    depth: "near",
+    size: 138,
+    drift: "animate-float3d-b",
+    duration: "29s",
+    delay: "-17s",
+    parallax: 0.07,
+    spin: 6,
   },
   {
-    Icon: Ruler,
-    top: "83%",
-    left: "8%",
-    depth: "mid",
-    size: 36,
-    drift: "animate-drift-c",
-    duration: "17s",
-    delay: "0.6s",
-    parallax: 0.035,
-    tint: "from-amber-400/20 to-amber-400/5 text-amber-600",
-  },
-  {
-    Icon: Atom,
-    top: "92%",
+    src: pages,
+    alt: "",
+    top: "49%",
     left: "88%",
-    depth: "back",
-    size: 30,
-    drift: "animate-drift-a",
-    duration: "20s",
-    delay: "1.8s",
-    parallax: 0.025,
-    tint: "from-brand-deep/15 to-brand-deep/5 text-brand-deep",
+    depth: "mid",
+    size: 108,
+    drift: "animate-float3d-c",
+    duration: "37s",
+    delay: "-9s",
+    parallax: 0.048,
+    spin: -9,
+  },
+  {
+    src: bookmark,
+    alt: "",
+    top: "59%",
+    left: "2%",
+    depth: "far",
+    size: 78,
+    drift: "animate-float3d-a",
+    duration: "49s",
+    delay: "-21s",
+    parallax: 0.02,
+    spin: 18,
+    hideOnMobile: true,
+  },
+  {
+    src: notebook,
+    alt: "",
+    top: "66%",
+    left: "90%",
+    depth: "near",
+    size: 124,
+    drift: "animate-float3d-b",
+    duration: "31s",
+    delay: "-14s",
+    parallax: 0.08,
+    spin: -7,
+  },
+  {
+    src: bookOpen,
+    alt: "",
+    top: "77%",
+    left: "9%",
+    depth: "mid",
+    size: 100,
+    drift: "animate-float3d-c",
+    duration: "39s",
+    delay: "-25s",
+    parallax: 0.042,
+    spin: 21,
+  },
+  {
+    src: bulb,
+    alt: "",
+    top: "84%",
+    left: "84%",
+    depth: "far",
+    size: 72,
+    drift: "animate-float3d-a",
+    duration: "52s",
+    delay: "-8s",
+    parallax: 0.018,
+    spin: -15,
+    hideOnMobile: true,
+  },
+  {
+    src: pages,
+    alt: "",
+    top: "92%",
+    left: "5%",
+    depth: "mid",
+    size: 92,
+    drift: "animate-float3d-b",
+    duration: "35s",
+    delay: "-19s",
+    parallax: 0.05,
+    spin: 11,
+  },
+  {
+    src: bookStack,
+    alt: "",
+    top: "96%",
+    left: "89%",
+    depth: "far",
+    size: 88,
+    drift: "animate-float3d-c",
+    duration: "44s",
+    delay: "-30s",
+    parallax: 0.024,
+    spin: -19,
     hideOnMobile: true,
   },
 ];
@@ -164,15 +205,15 @@ export function FloatingBackground() {
   const refs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduceMotion) return;
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (media.matches) return;
 
     let ticking = false;
     const apply = () => {
       const y = window.scrollY;
       refs.current.forEach((el, i) => {
         if (!el) return;
-        el.style.transform = `translate3d(0, ${y * ITEMS[i].parallax}px, 0)`;
+        el.style.transform = `translate3d(0, ${(-y * ITEMS[i].parallax).toFixed(2)}px, 0)`;
       });
       ticking = false;
     };
@@ -189,35 +230,50 @@ export function FloatingBackground() {
   }, []);
 
   return (
-    <div aria-hidden className="pointer-events-none absolute inset-0 z-[-1] overflow-hidden">
-      {ITEMS.map((item, i) => {
-        const { opacity, blur } = DEPTH_STYLE[item.depth];
-        return (
+    <div
+      aria-hidden
+      className="pointer-events-none absolute inset-0 z-0 select-none overflow-hidden"
+    >
+      {ITEMS.map((item, i) => (
+        <div
+          key={i}
+          ref={(el) => {
+            refs.current[i] = el;
+          }}
+          className={`absolute will-change-transform ${item.hideOnMobile ? "hidden lg:block" : ""}`}
+          style={{
+            top: item.top,
+            left: item.left,
+            perspective: "900px",
+            perspectiveOrigin: "50% 50%",
+          }}
+        >
           <div
-            key={i}
-            ref={(el) => {
-              refs.current[i] = el;
+            className={`${item.drift} will-change-transform`}
+            style={{
+              animationDuration: item.duration,
+              animationDelay: item.delay,
+              transformStyle: "preserve-3d",
             }}
-            className={`absolute will-change-transform ${item.hideOnMobile ? "hidden sm:block" : ""}`}
-            style={{ top: item.top, left: item.left }}
           >
             <div
-              className={item.drift}
-              style={{ animationDuration: item.duration, animationDelay: item.delay }}
+              className="animate-float3d-breathe"
+              style={{ animationDelay: item.delay, transform: `rotate(${item.spin}deg)` }}
             >
-              <div
-                className={`grid place-items-center rounded-2xl bg-gradient-to-br shadow-soft ${opacity} ${blur} ${item.tint}`}
-                style={{ width: item.size, height: item.size }}
-              >
-                <item.Icon
-                  style={{ width: item.size * 0.5, height: item.size * 0.5 }}
-                  strokeWidth={1.6}
-                />
-              </div>
+              <img
+                src={item.src}
+                alt={item.alt}
+                loading="lazy"
+                decoding="async"
+                width={item.size}
+                height={item.size}
+                className={`h-auto w-[70%] sm:w-full ${DEPTH_STYLE[item.depth]}`}
+                style={{ width: item.size, maxWidth: "40vw" }}
+              />
             </div>
           </div>
-        );
-      })}
+        </div>
+      ))}
     </div>
   );
 }
