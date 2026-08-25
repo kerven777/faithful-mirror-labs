@@ -86,12 +86,12 @@ export const SENARY_BOOKS: Book[] = [
 ];
 
 export const ALL_BOOKS: Book[] = [
-  { src: allBook1.url, alt: "English File Beginner — Student's Book & Workbook", targetId: "ef-beginner" },
-  { src: allBook2.url, alt: "English File Elementary — Student's Book & Workbook", targetId: "ef-elementary" },
-  { src: allBook3.url, alt: "English File Pre-intermediate — Student's Book & Workbook", targetId: "ef-pre-intermediate" },
-  { src: allBook4.url, alt: "English File Intermediate — Student's Book & Workbook", targetId: "ef-intermediate" },
-  { src: allBook5.url, alt: "English File Upper-intermediate — Student's Book & Workbook", targetId: "ef-upper-intermediate" },
-  { src: allBook6.url, alt: "English File Advanced — Student's Book & Workbook", targetId: "ef-advanced" },
+  { src: allBook1, alt: "English File Beginner — Student's Book & Workbook", targetId: "ef-beginner" },
+  { src: allBook2, alt: "English File Elementary — Student's Book & Workbook", targetId: "ef-elementary" },
+  { src: allBook3, alt: "English File Pre-intermediate — Student's Book & Workbook", targetId: "ef-pre-intermediate" },
+  { src: allBook4, alt: "English File Intermediate — Student's Book & Workbook", targetId: "ef-intermediate" },
+  { src: allBook5, alt: "English File Upper-intermediate — Student's Book & Workbook", targetId: "ef-upper-intermediate" },
+  { src: allBook6, alt: "English File Advanced — Student's Book & Workbook", targetId: "ef-advanced" },
 ];
 
 export function BookSlider({
