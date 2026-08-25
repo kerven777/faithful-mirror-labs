@@ -25,7 +25,7 @@ export function Hero() {
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute top-1/3 -left-20 h-72 w-72 rounded-full bg-surface blur-3xl"
+        className="pointer-events-none absolute top-1/3 -left-20 h-72 w-72 rounded-full bg-surface/60 blur-3xl"
       />
 
       <div className="relative mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-2 lg:gap-10">
