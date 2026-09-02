@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import logo from "@/assets/logo-mark.png";
-import { ChevronDown, Menu, X, Download, ArrowUpRight } from "lucide-react";
+import { ChevronDown, Menu, X, Download, ArrowUpRight, Globe } from "lucide-react";
 import { useI18n, LANGS, Lang } from "./i18n";
 import { Link } from "@tanstack/react-router";
 
@@ -37,58 +37,59 @@ export function Header() {
   };
 
   return (
-    <header
-      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
-        scrolled
-          ? "bg-background/90 backdrop-blur-md border-b border-border/60 shadow-sm"
-          : "bg-transparent border-b border-transparent"
-      }`}
-    >
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 lg:px-10">
+    <header className="sticky top-0 z-50 w-full px-3 pt-3 sm:px-5 sm:pt-4">
+      <div
+        className={`mx-auto flex max-w-6xl items-center justify-between gap-3 rounded-full px-3 py-2.5 transition-all duration-300 sm:px-4 ${
+          scrolled ? "glass-panel" : "border border-transparent bg-transparent"
+        }`}
+      >
         <a
           href="#top"
           onClick={(e) => handleNavClick(e, "#top")}
-          className="flex items-center gap-2.5 shrink-0"
+          className="flex shrink-0 items-center gap-2 pl-1"
         >
-          <img src={logo} alt="Kitap" className="h-10 w-auto" />
-          <span className="font-display text-2xl font-bold text-brand tracking-tight">Kitap</span>
+          <img src={logo} alt="Kitap" className="h-8 w-auto" />
+          <span className="font-display text-xl font-bold tracking-tight text-foreground">
+            Kitap
+          </span>
         </a>
 
-        <nav className="hidden lg:flex items-center gap-1 rounded-full border border-border/70 bg-card/60 px-2 py-1.5 backdrop-blur">
+        <nav className="hidden items-center gap-0.5 lg:flex">
           {NAV.map((item) => (
             <a
               key={item.href}
               href={item.href}
               onClick={(e) => handleNavClick(e, item.href)}
-              className="rounded-full px-4 py-2 text-sm font-medium text-foreground/75 transition-colors hover:bg-brand-soft hover:text-brand"
+              className="rounded-full px-3.5 py-2 text-[13px] font-medium text-foreground/65 transition-colors duration-200 hover:bg-brand-soft hover:text-brand"
             >
               {item.label}
             </a>
           ))}
         </nav>
 
-        <div className="hidden lg:flex items-center gap-3">
+        <div className="hidden items-center gap-2 lg:flex">
           <Link
             to="/download-guide"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground/70 hover:text-brand transition-colors"
+            className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-[13px] font-medium text-foreground/65 transition-colors hover:bg-surface hover:text-foreground"
           >
-            <Download className="h-4 w-4" />
+            <Download className="h-3.5 w-3.5" />
             {t.nav.download}
           </Link>
           <div className="relative">
             <button
               onClick={() => setLangOpen((v) => !v)}
-              className="flex items-center gap-1.5 rounded-full border border-border px-3.5 py-2 text-sm font-medium text-foreground/75 hover:border-brand hover:text-brand transition-colors"
+              className="flex items-center gap-1.5 rounded-full border border-border px-3 py-2 text-[13px] font-medium text-foreground/70 transition-colors hover:border-brand/50 hover:text-brand"
             >
+              <Globe className="h-3.5 w-3.5" />
               {current.label}
               <ChevronDown
-                className={`h-4 w-4 transition-transform duration-200 ${langOpen ? "rotate-180" : ""}`}
+                className={`h-3.5 w-3.5 transition-transform duration-200 ${langOpen ? "rotate-180" : ""}`}
               />
             </button>
             {langOpen && (
               <>
                 <div className="fixed inset-0 z-10" onClick={() => setLangOpen(false)} />
-                <div className="absolute right-0 mt-3 w-36 rounded-2xl border border-border bg-card shadow-xl overflow-hidden animate-fade-in z-20">
+                <div className="animate-fade-in absolute right-0 z-20 mt-3 w-36 overflow-hidden rounded-2xl border border-border bg-card shadow-xl">
                   {LANGS.filter((l) => l.code !== lang).map((l) => (
                     <button
                       key={l.code}
@@ -96,7 +97,7 @@ export function Header() {
                         setLang(l.code as Lang);
                         setLangOpen(false);
                       }}
-                      className="block w-full px-4 py-2.5 text-left text-sm hover:bg-brand-soft hover:text-brand transition-colors"
+                      className="block w-full px-4 py-2.5 text-left text-sm transition-colors hover:bg-brand-soft hover:text-brand"
                     >
                       {l.label}
                     </button>
@@ -108,15 +109,15 @@ export function Header() {
           <a
             href="#contact"
             onClick={(e) => handleNavClick(e, "#contact")}
-            className="group inline-flex items-center gap-1.5 rounded-full bg-brand px-5 py-2.5 text-sm font-semibold text-brand-foreground shadow-soft transition-transform hover:-translate-y-0.5"
+            className="group inline-flex items-center gap-1.5 rounded-full bg-brand px-4 py-2.5 text-[13px] font-semibold text-brand-foreground transition-all duration-200 hover:-translate-y-0.5 hover:shadow-soft"
           >
             {t.hero.cta}
-            <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </a>
         </div>
 
         <button
-          className="lg:hidden p-2 -mr-2 rounded-full border border-border"
+          className="rounded-full border border-border p-2 lg:hidden"
           onClick={() => setOpen((v) => !v)}
           aria-label="Toggle menu"
         >
@@ -125,14 +126,14 @@ export function Header() {
       </div>
 
       {open && (
-        <div className="lg:hidden border-t border-border bg-background/95 backdrop-blur animate-fade-in-up">
-          <div className="px-5 py-4 flex flex-col gap-1">
+        <div className="animate-fade-in-up glass-panel mx-auto mt-2 max-w-6xl rounded-3xl p-3 lg:hidden">
+          <div className="flex flex-col gap-1">
             {NAV.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
                 onClick={(e) => handleNavClick(e, item.href)}
-                className="rounded-xl px-3 py-3 text-[15px] font-medium text-foreground/80 hover:bg-brand-soft hover:text-brand transition-colors"
+                className="rounded-2xl px-4 py-3 text-[15px] font-medium text-foreground/80 transition-colors hover:bg-brand-soft hover:text-brand"
               >
                 {item.label}
               </a>
@@ -140,7 +141,7 @@ export function Header() {
             <Link
               to="/download-guide"
               onClick={() => setOpen(false)}
-              className="rounded-xl px-3 py-3 text-[15px] font-medium text-foreground/80 flex items-center gap-2 hover:bg-brand-soft hover:text-brand transition-colors"
+              className="flex items-center gap-2 rounded-2xl px-4 py-3 text-[15px] font-medium text-foreground/80 transition-colors hover:bg-brand-soft hover:text-brand"
             >
               <Download className="h-4 w-4" />
               {t.nav.download}
@@ -151,13 +152,14 @@ export function Header() {
               className="mt-2 inline-flex items-center justify-center gap-1.5 rounded-full bg-brand px-5 py-3 text-sm font-semibold text-brand-foreground"
             >
               {t.hero.cta}
+              <ArrowUpRight className="h-4 w-4" />
             </a>
-            <div className="flex gap-2 pt-4 mt-2 border-t border-border">
+            <div className="mt-2 flex gap-2 border-t border-border pt-3">
               {LANGS.map((l) => (
                 <button
                   key={l.code}
                   onClick={() => setLang(l.code as Lang)}
-                  className={`px-3 py-1.5 text-sm rounded-full transition-colors ${
+                  className={`rounded-full px-3 py-1.5 text-sm transition-colors ${
                     l.code === lang
                       ? "bg-brand text-brand-foreground"
                       : "bg-surface text-foreground/70"
