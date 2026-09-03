@@ -20,7 +20,7 @@ export function News() {
   const { t } = useI18n();
   const [feature, ...rest] = t.newsItems;
   return (
-    <section id="news" className="px-5 lg:px-10 py-20 lg:py-28 bg-surface/70">
+    <section id="news" className="px-5 lg:px-10 py-20 lg:py-28 section-band">
       <div className="mx-auto max-w-7xl">
         <Reveal>
           <SectionHeading title={t.news.title} />

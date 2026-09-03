@@ -1,5 +1,6 @@
 import { Header } from "@/components/site/Header";
 import { Hero } from "@/components/site/Hero";
+import { Metrics } from "@/components/site/Metrics";
 import { Courses } from "@/components/site/Courses";
 import { Teachers } from "@/components/site/Teachers";
 import { About } from "@/components/site/About";
@@ -19,6 +20,7 @@ export function HomePage() {
           <Header />
         <main>
           <Hero />
+          <Metrics />
           <Courses />
           <Teachers />
           <About />

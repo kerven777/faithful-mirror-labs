@@ -7,7 +7,7 @@ export function Contact() {
   const { t } = useI18n();
   const [sent, setSent] = useState(false);
   return (
-    <section id="contact" className="px-5 lg:px-10 py-20 lg:py-28 bg-surface/70">
+    <section id="contact" className="px-5 lg:px-10 py-20 lg:py-28 section-band">
       <div className="mx-auto max-w-7xl grid lg:grid-cols-2 gap-16 items-start">
         <Reveal>
           <p className="inline-flex items-center gap-2 rounded-full bg-brand-soft px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-brand">

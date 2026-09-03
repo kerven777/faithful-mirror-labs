@@ -83,7 +83,7 @@ export function Hero() {
             />
             <div
               aria-hidden
-              className="absolute -top-4 -right-4 h-40 w-40 rounded-[2.5rem] bg-brand-soft/70"
+              className="absolute -top-4 -right-4 h-40 w-40 rounded-[2.5rem] bg-brand/12 blur-2xl"
             />
             <div className="card-premium relative overflow-hidden p-3">
               <div className="relative overflow-hidden rounded-[1.6rem]">
