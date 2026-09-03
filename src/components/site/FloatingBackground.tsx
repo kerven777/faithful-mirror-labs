@@ -33,9 +33,9 @@ type FloatItem = {
  * foreground content always stays legible.
  */
 const DEPTH_STYLE: Record<Depth, string> = {
-  far: "opacity-[0.26] blur-[2.5px] saturate-[1.05]",
-  mid: "opacity-[0.38] blur-[1px] saturate-[1.1]",
-  near: "opacity-[0.5] blur-[0.3px] saturate-[1.1]",
+  far: "opacity-[0.09] blur-[3px] saturate-[0.7] brightness-[0.8]",
+  mid: "opacity-[0.13] blur-[1.5px] saturate-[0.75] brightness-[0.85]",
+  near: "opacity-[0.17] blur-[0.6px] saturate-[0.8] brightness-[0.9]",
 };
 
 const ITEMS: FloatItem[] = [
