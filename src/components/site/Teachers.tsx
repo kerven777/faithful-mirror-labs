@@ -23,11 +23,11 @@ export function Teachers() {
   return (
     <section
       id="teachers"
-      className="relative overflow-hidden px-5 lg:px-10 py-20 lg:py-28 bg-surface/70"
+      className="relative overflow-hidden px-5 lg:px-10 py-20 lg:py-28 section-band"
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute -top-16 right-0 h-72 w-72 rounded-full bg-brand-soft/60 blur-3xl"
+        className="pointer-events-none absolute -top-16 right-0 h-72 w-72 rounded-full bg-brand/15 blur-3xl"
       />
       <div className="relative mx-auto max-w-7xl">
         <Reveal className="flex flex-wrap items-end justify-between gap-6">
