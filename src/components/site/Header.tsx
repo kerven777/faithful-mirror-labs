@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import logo from "@/assets/logo-mark.png";
-import { ChevronDown, Menu, X, Download, ArrowUpRight, Globe } from "lucide-react";
+import { ChevronDown, Menu, X, ArrowUpRight, Globe } from "lucide-react";
 import { useI18n, LANGS, Lang } from "./i18n";
 import { Link } from "@tanstack/react-router";
 
