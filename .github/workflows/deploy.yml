@@ -26,12 +26,12 @@ jobs:
           GITHUB_PAGES: "true"
       - name: Prepare static site
         run: |
-          OUT=dist/client
+          OUT=.output/public
           touch $OUT/.nojekyll
           if [ -f $OUT/index.html ]; then cp $OUT/index.html $OUT/404.html; fi
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: dist/client
+          path: .output/public
   deploy:
     needs: build
     runs-on: ubuntu-latest
